@@ -1,0 +1,41 @@
+#! movie-service-deployment.yaml
+# Generated code, do not edit
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: movie-service
+    namespace: cineverse
+    labels:
+        com.docker.compose.project: cineverse
+        com.docker.compose.service: movie-service
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            com.docker.compose.project: cineverse
+            com.docker.compose.service: movie-service
+    strategy:
+        type: Recreate
+    template:
+        metadata:
+            labels:
+                com.docker.compose.project: cineverse
+                com.docker.compose.service: movie-service
+                com.docker.compose.network.cineverse-net: "true"
+        spec:
+            containers:
+                - name: movie-service
+                  image: cineverse-movie-service
+                  imagePullPolicy: IfNotPresent
+                  env:
+                    - name: REVIEW_SERVICE_URL
+                      value: "http://review-service:5003"
+                    - name: SPRING_DATA_MONGODB_URI
+                      value: "mongodb://mongodb:27017/moviedb"
+                    - name: SPRING_REDIS_HOST
+                      value: "redis"
+                    - name: SPRING_REDIS_PORT
+                      value: "6379"
+                  ports:
+                    - name: movie-serv-5002
+                      containerPort: 5002

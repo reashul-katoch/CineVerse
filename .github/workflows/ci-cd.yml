@@ -1,0 +1,72 @@
+name: Cineverse CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_DB: userdb
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      mongodb:
+        image: mongo:6.0
+        ports:
+          - 27017:27017
+
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Build Gateway Service
+      run: |
+        cd backend/gateway-service
+        mvn clean package -DskipTests
+
+    - name: Build Auth Service
+      run: |
+        cd backend/auth-service
+        mvn clean package -DskipTests
+
+    - name: Build Review Service
+      run: |
+        cd backend/review-service
+        mvn clean package -DskipTests
+
+    - name: Build Movie Service
+      run: |
+        cd backend/movie-service
+        mvn clean package -DskipTests
+
+    - name: Build Frontend React App
+      run: |
+        cd frontend
+        npm install
+        npm run build --if-present

@@ -1,0 +1,29 @@
+#! kustomization.yaml
+# Generated code, do not edit
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+    - 0-cineverse-namespace.yaml
+    - auth-service-deployment.yaml
+    - auth-service-expose.yaml
+    - auth-service-service.yaml
+    - cineverse-net-network-policy.yaml
+    - gateway-deployment.yaml
+    - gateway-expose.yaml
+    - gateway-service.yaml
+    - mongodb-deployment.yaml
+    - mongodb-expose.yaml
+    - mongodb-mongo-data-persistentVolumeClaim.yaml
+    - mongodb-service.yaml
+    - movie-service-deployment.yaml
+    - movie-service-expose.yaml
+    - movie-service-service.yaml
+    - postgres-db-deployment.yaml
+    - postgres-db-expose.yaml
+    - postgres-db-service.yaml
+    - redis-deployment.yaml
+    - redis-expose.yaml
+    - redis-service.yaml
+    - review-service-deployment.yaml
+    - review-service-expose.yaml
+    - review-service-service.yaml

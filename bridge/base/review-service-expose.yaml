@@ -1,0 +1,18 @@
+#! review-service-expose.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Service
+metadata:
+    name: review-service
+    namespace: cineverse
+    labels:
+        com.docker.compose.project: cineverse
+        com.docker.compose.service: review-service
+spec:
+    selector:
+        com.docker.compose.project: cineverse
+        com.docker.compose.service: review-service
+    ports:
+        - name: review-ser-5003
+          port: 5003
+          targetPort: review-ser-5003

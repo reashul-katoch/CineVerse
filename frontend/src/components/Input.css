@@ -1,0 +1,74 @@
+.cv-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%;
+}
+
+.cv-input-label {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-align: left;
+}
+
+.cv-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+
+.cv-input-container:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(245, 197, 24, 0.15);
+}
+
+.cv-input-container.has-error {
+  border-color: var(--secondary);
+}
+
+.cv-input-container.has-error:focus-within {
+  box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.15);
+}
+
+.cv-input-field {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-main);
+  padding: 0.65rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+}
+
+.cv-input-field::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.cv-input-field.has-icon {
+  padding-left: 2.5rem;
+}
+
+.cv-input-icon {
+  position: absolute;
+  left: 0.85rem;
+  display: flex;
+  align-items: center;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+
+.cv-input-error-msg {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--secondary);
+  text-align: left;
+}

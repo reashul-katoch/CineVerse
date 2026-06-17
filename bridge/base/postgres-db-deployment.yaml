@@ -1,0 +1,44 @@
+#! postgres-db-deployment.yaml
+# Generated code, do not edit
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: postgres-db
+    namespace: cineverse
+    labels:
+        com.docker.compose.project: cineverse
+        com.docker.compose.service: postgres-db
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            com.docker.compose.project: cineverse
+            com.docker.compose.service: postgres-db
+    strategy:
+        type: Recreate
+    template:
+        metadata:
+            labels:
+                com.docker.compose.project: cineverse
+                com.docker.compose.service: postgres-db
+                com.docker.compose.network.cineverse-net: "true"
+        spec:
+            containers:
+                - name: postgres-db
+                  image: postgres:15-alpine
+                  imagePullPolicy: IfNotPresent
+                  env:
+                    - name: POSTGRES_PASSWORD
+                      value: "password"
+                    - name: POSTGRES_USER
+                      value: "postgres"
+                  ports:
+                    - name: postgres-d-5432
+                      containerPort: 5432
+                  volumeMounts:
+                    - name: docker-entrypoint-initdb-d-init-db-sql
+                      mountPath: /docker-entrypoint-initdb.d/init-db.sql
+            volumes:
+                - name: docker-entrypoint-initdb-d-init-db-sql
+                  hostPath:
+                    path: C:\Users\reash\Cineverse\backend\init-db.sql

@@ -1,0 +1,21 @@
+#! movie-service-service.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Service
+metadata:
+    name: movie-service-published
+    namespace: cineverse
+    labels:
+        com.docker.compose.project: cineverse
+        com.docker.compose.service: movie-service
+spec:
+    selector:
+        com.docker.compose.project: cineverse
+        com.docker.compose.service: movie-service
+    ports:
+        - name: movie-serv-5002
+          port: 5002
+          protocol: TCP
+          targetPort: movie-serv-5002
+
+# check if there is at least one published port

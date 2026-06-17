@@ -1,0 +1,15 @@
+#! kustomization.yaml
+# Generated code, do not edit
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+    - ../../base
+patches:
+    - path: auth-service-service.yaml
+    - path: gateway-service.yaml
+    - path: mongodb-mongo-data-persistentVolumeClaim.yaml
+    - path: mongodb-service.yaml
+    - path: movie-service-service.yaml
+    - path: postgres-db-service.yaml
+    - path: redis-service.yaml
+    - path: review-service-service.yaml

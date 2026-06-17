@@ -1,0 +1,18 @@
+#! postgres-db-expose.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Service
+metadata:
+    name: postgres-db
+    namespace: cineverse
+    labels:
+        com.docker.compose.project: cineverse
+        com.docker.compose.service: postgres-db
+spec:
+    selector:
+        com.docker.compose.project: cineverse
+        com.docker.compose.service: postgres-db
+    ports:
+        - name: postgres-d-5432
+          port: 5432
+          targetPort: postgres-d-5432

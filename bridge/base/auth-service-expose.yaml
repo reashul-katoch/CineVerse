@@ -1,0 +1,18 @@
+#! auth-service-expose.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Service
+metadata:
+    name: auth-service
+    namespace: cineverse
+    labels:
+        com.docker.compose.project: cineverse
+        com.docker.compose.service: auth-service
+spec:
+    selector:
+        com.docker.compose.project: cineverse
+        com.docker.compose.service: auth-service
+    ports:
+        - name: auth-servi-5001
+          port: 5001
+          targetPort: auth-servi-5001

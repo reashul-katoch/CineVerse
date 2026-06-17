@@ -1,0 +1,23 @@
+# check if there is at least one published port
+
+#! auth-service-service.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Service
+metadata:
+    name: auth-service-published
+    namespace: cineverse
+    labels:
+        com.docker.compose.project: cineverse
+        com.docker.compose.service: auth-service
+spec:
+    selector:
+        com.docker.compose.project: cineverse
+        com.docker.compose.service: auth-service
+    ports:
+        - name: auth-servi-5001
+          port: 5001
+          protocol: TCP
+          targetPort: auth-servi-5001
+
+# check if there is at least one published port

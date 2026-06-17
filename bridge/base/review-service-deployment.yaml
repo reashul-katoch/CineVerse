@@ -1,0 +1,35 @@
+#! review-service-deployment.yaml
+# Generated code, do not edit
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: review-service
+    namespace: cineverse
+    labels:
+        com.docker.compose.project: cineverse
+        com.docker.compose.service: review-service
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            com.docker.compose.project: cineverse
+            com.docker.compose.service: review-service
+    strategy:
+        type: Recreate
+    template:
+        metadata:
+            labels:
+                com.docker.compose.project: cineverse
+                com.docker.compose.service: review-service
+                com.docker.compose.network.cineverse-net: "true"
+        spec:
+            containers:
+                - name: review-service
+                  image: cineverse-review-service
+                  imagePullPolicy: IfNotPresent
+                  env:
+                    - name: SPRING_DATA_MONGODB_URI
+                      value: "mongodb://mongodb:27017/reviewdb"
+                  ports:
+                    - name: review-ser-5003
+                      containerPort: 5003

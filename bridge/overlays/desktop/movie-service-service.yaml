@@ -1,0 +1,11 @@
+#! movie-service-service.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Service
+metadata:
+    name: movie-service-published
+    namespace: cineverse
+spec:
+    type: LoadBalancer
+
+# check if there is at least one published port

@@ -1,0 +1,9 @@
+#! review-service-service.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Service
+metadata:
+    name: review-service-published
+    namespace: cineverse
+spec:
+    type: LoadBalancer

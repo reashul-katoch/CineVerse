@@ -1,0 +1,112 @@
+.cv-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--border-color);
+  width: 100%;
+}
+
+.cv-navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+}
+
+.cv-logo-emoji {
+  font-size: 1.8rem;
+}
+
+.cv-logo-text {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 850;
+  letter-spacing: -0.04em;
+}
+
+.cv-navbar-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.cv-nav-item {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.4rem 0.8rem;
+  position: relative;
+  outline: none;
+}
+
+.cv-nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 80%;
+  height: 2px;
+  background-color: var(--primary);
+  transition: transform 0.2s ease;
+}
+
+.cv-nav-item:hover {
+  color: var(--text-main);
+}
+
+.cv-nav-item.active {
+  color: var(--primary);
+}
+
+.cv-nav-item.active::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.cv-navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cv-user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary) 0%, #ff7b00 100%);
+  color: var(--bg-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.cv-user-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+@media (max-width: 640px) {
+  .cv-navbar {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .cv-navbar-links {
+    gap: 1rem;
+  }
+  
+  .cv-navbar-user {
+    display: none; /* Hide profile on small screens to save space */
+  }
+}

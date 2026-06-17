@@ -1,0 +1,101 @@
+services:
+  postgres-db:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - ./backend/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - cineverse-net
+
+  mongodb:
+    image: mongo:6.0
+    container_name: cineverse-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - cineverse-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: cineverse-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - cineverse-net
+
+  auth-service:
+    build:
+      context: ./backend/auth-service
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5001"
+    environment:
+      - DB_HOST=postgres-db
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+    depends_on:
+      - postgres-db
+    networks:
+      - cineverse-net
+
+  review-service:
+    build:
+      context: ./backend/review-service
+      dockerfile: Dockerfile
+    ports:
+      - "5003:5003"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/reviewdb
+    depends_on:
+      - mongodb
+    networks:
+      - cineverse-net
+
+  movie-service:
+    build:
+      context: ./backend/movie-service
+      dockerfile: Dockerfile
+    ports:
+      - "5002:5002"
+    environment:
+      - REVIEW_SERVICE_URL=http://review-service:5003
+      - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/moviedb
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
+    depends_on:
+      - mongodb
+      - review-service
+      - redis
+    networks:
+      - cineverse-net
+
+  gateway:
+    build:
+      context: ./backend/gateway-service
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - AUTH_SERVICE_URL=http://auth-service:5001
+      - MOVIE_SERVICE_URL=http://movie-service:5002
+      - REVIEW_SERVICE_URL=http://review-service:5003
+    depends_on:
+      - auth-service
+      - movie-service
+      - review-service
+    networks:
+      - cineverse-net
+
+networks:
+  cineverse-net:
+    driver: bridge
+
+volumes:
+  mongo-data:
+
